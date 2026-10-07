@@ -409,5 +409,85 @@ export const questions: Question[] = [
     options: ["Systems-specific security policy", "General or security program policy", "Enterprise information security policy", "Issue-specific security policy"],
     correctAnswer: ["Issue-specific security policy"],
     type: "single"
+  },
+  {
+    id: 51,
+    week: 6,
+    question: "Match the following:\n\n1. Risk Assessment\n2. Risk Identification\n3. Risk Management\n4. Risk Control\n\na. The process of identifying risk, assessing its relative magnitude, and taking steps to reduce it to an acceptable level.\nb. The recognition, enumeration, and documentation of risks to an organization's information assets.\nc. The implementation of safeguards that reduce the risks to an organization's information assets to an acceptable level.\nd. A determination of the extent to which an organization's information assets are exposed to risk.",
+    options: ["1-a, 2-d, 3-c, 4-b", "1-d, 2-a, 3-b, 4-c", "1-d, 2-b, 3-a, 4-c", "1-b, 2-a, 3-d, 4-c"],
+    correctAnswer: ["1-d, 2-b, 3-a, 4-c"],
+    type: "single"
+  },
+  {
+    id: 52,
+    week: 6,
+    question: "The risk that remains after the risk management process has concluded is a combined function of:",
+    options: ["(1) a threat less the effect of threat-reducing safeguards, (2) a vulnerability less the effect of vulnerability-reducing safeguards, and (3) an asset less the effect of asset value-reducing safeguards.", "(1) a threat less the effect of threat-reducing safeguards, (2) a vulnerability plus the effect of vulnerability-reducing safeguards.", "(1) a threat plus the effect of threat-reducing safeguards.", "(1) a threat plus the effect of threat-reducing safeguards (Option D)."],
+    correctAnswer: ["(1) a threat less the effect of threat-reducing safeguards, (2) a vulnerability less the effect of vulnerability-reducing safeguards, and (3) an asset less the effect of asset value-reducing safeguards."],
+    type: "single"
+  },
+  {
+    id: 53,
+    week: 6,
+    question: "Which of the following is not a component of Risk Assessment?",
+    options: ["Determine Loss Frequency", "Specify Asset Vulnerabilities", "Calculate Risk", "Assess Risk Acceptability"],
+    correctAnswer: ["Specify Asset Vulnerabilities"],
+    type: "single"
+  },
+  {
+    id: 54,
+    week: 6,
+    question: "________ is the quantity and nature of risk that organizations are willing to accept as they evaluate the trade-offs between perfect security and unlimited accessibility.",
+    options: ["Residual risk", "Risk appetite", "Loss magnitude", "Loss frequency"],
+    correctAnswer: ["Risk appetite"],
+    type: "single"
+  },
+  {
+    id: 55,
+    week: 6,
+    question: "Which of the following are the components of risk identification?\n(Select all that apply. More than one answer may be possible.)",
+    options: ["Identify, Inventory, & Categorize Assets", "Evaluate Loss Magnitude", "Classify, Value, & Prioritize Assets", "Specify Asset Vulnerabilities"],
+    correctAnswer: ["Identify, Inventory, & Categorize Assets", "Classify, Value, & Prioritize Assets", "Specify Asset Vulnerabilities"],
+    type: "multiple"
+  },
+  {
+    id: 56,
+    week: 6,
+    question: "The classification scheme used by the U.S. Classified National Security Information (NSI) system to information, the unauthorized disclosure of which reasonably could be expected to cause serious damage to the national security that the original classification authority is able to identify or describe.",
+    options: ["Top Secret", "Secret", "Confidential", "Internal"],
+    correctAnswer: ["Secret"],
+    type: "single"
+  },
+  {
+    id: 57,
+    week: 6,
+    question: "Match the following threats with examples:\n\nThreats:\n1. Espionage or trespass\n2. Sabotage or vandalism\n3. Information extortion\n4. Theft\n\nExamples:\na. Damage to or destruction of systems or information\nb. Unauthorized access and/or data collection\nc. Illegal confiscation of equipment or information\nd. Blackmail threat of information disclosure",
+    options: ["1-c, 2-a, 3-b, 4-d", "1-b, 2-a, 3-d, 4-c", "1-c, 2-d, 3-b, 4-b", "1-b, 2-d, 3-a, 4-d"],
+    correctAnswer: ["1-b, 2-a, 3-d, 4-c"],
+    type: "single"
+  },
+  {
+    id: 58,
+    week: 6,
+    question: "An attacker bypasses or compromises a router, gains access to an organization's network, and encrypts critical data, demanding payment in exchange for the decryption key. This scenario is best classified as:",
+    options: ["Information extortion", "Sabotage or vandalism", "Espionage or trespass", "Software attacks"],
+    correctAnswer: ["Information extortion"],
+    type: "single"
+  },
+  {
+    id: 59,
+    week: 6,
+    question: "An organization's Hospital Electronic Health Record (EHR) System (Asset A) has an asset value of 50 on a scale of 0–100. Industry reports indicate a 10% probability of a cyberattack in a given year. Based on current vulnerabilities and protection mechanisms, the attack has a 50% probability of success if attempted. Information security analysts estimate that a successful attack would result in a 100% loss of the EHR system's value. The assumptions and data used in the analysis are considered 90% accurate, and the resulting risk value should be adjusted by adding the 10% uncertainty.\n\nUsing the formula:\n\nRisk = (Loss Frequency × Loss Magnitude) + Uncertainty Term\n\nWhat is the risk score for Asset A?",
+    options: ["2.25", "2.5", "2.75", "5"],
+    correctAnswer: ["2.75"],
+    type: "single"
+  },
+  {
+    id: 60,
+    week: 6,
+    question: "True or False:\n\nThe goal of risk assessment is to assign a risk rating or score that represents the relative risk for a specific vulnerability of an information asset.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
   }
 ];
