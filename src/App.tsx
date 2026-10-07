@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { questions } from './data/questions';
 import type { Question } from './data/questions';
 
@@ -13,6 +13,29 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showConfirm, setShowConfirm] = useState(false);
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
+
+  useEffect(() => {
+    if (!window.history.state || !window.history.state.screen) {
+      window.history.replaceState({ screen: 'start' }, '', '');
+    }
+
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state && event.state.screen) {
+        setScreen(event.state.screen);
+      } else {
+        setScreen('start');
+      }
+      setShowConfirm(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const goHome = () => {
+    setScreen('start');
+    window.history.pushState({ screen: 'start' }, '', '');
+  };
 
   const startTest = (mode: 'week1' | 'week2' | 'week3' | 'week4' | 'week5' | 'week6' | 'full' | 'wrong') => {
     let selected: Question[] = [];
@@ -34,6 +57,7 @@ export default function App() {
     setScreen('quiz');
     setShowConfirm(false);
     setReviewFilter('all');
+    window.history.pushState({ screen: 'quiz' }, '', '');
   };
 
   const getStatus = (question: Question, currentAnswers: Answers) => {
@@ -70,6 +94,7 @@ export default function App() {
   const handleSubmit = () => {
     setShowConfirm(false);
     setScreen('result');
+    window.history.pushState({ screen: 'result' }, '', '');
   };
 
   const resultStats = useMemo(() => {
@@ -260,7 +285,7 @@ export default function App() {
             </div>
             
             <div className="flex flex-wrap justify-center gap-4 mt-8 pt-6 border-t border-navy-700">
-              <button className="btn-secondary" onClick={() => setScreen('start')}>Home</button>
+              <button className="btn-secondary" onClick={goHome}>Home</button>
               <button className="btn-primary" onClick={() => startTest('full')}>Retry Full Test</button>
               {resultStats.wrong > 0 && (
                 <button className="btn-primary bg-amber-600 hover:bg-amber-700" onClick={() => startTest('wrong')}>
