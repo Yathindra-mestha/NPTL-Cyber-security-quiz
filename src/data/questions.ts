@@ -329,5 +329,85 @@ export const questions: Question[] = [
     options: ["Warm site", "Cold Site", "Hot Site", "Service Bureau"],
     correctAnswer: ["Hot Site"],
     type: "single"
+  },
+  {
+    id: 41,
+    week: 5,
+    question: "Identify the correct statement.",
+    options: ["Guidelines are examples of actions that illustrate compliance with policies.", "Procedures are non-mandatory recommendations that employees may use as a reference when complying with a policy.", "Standards are step-by-step instructions that guide employees in following policies and guidelines.", "Practices are examples of actions that illustrate compliance with policies."],
+    correctAnswer: ["Practices are examples of actions that illustrate compliance with policies."],
+    type: "single"
+  },
+  {
+    id: 42,
+    week: 5,
+    question: "Which of the following is not a component of Enterprise Information Security Policies (EISP)?",
+    options: ["Statement of Purpose", "Need for Information Security", "Authorized access and usage of equipment", "Information Security Responsibilities and Roles"],
+    correctAnswer: ["Authorized access and usage of equipment"],
+    type: "single"
+  },
+  {
+    id: 43,
+    week: 5,
+    question: "A policy to be effective and legally enforceable, it should meet which of the criteria?\n(Select all that apply. More than one answer may be possible.)",
+    options: ["The organization must be able to demonstrate that the policy has been made readily available for review by the employee.", "The organization must be able to demonstrate that it disseminated the document in an intelligible form.", "The organization must be able to demonstrate that the employee understands the requirements and content of the policy.", "The organization must be able to demonstrate that the employee agrees to comply with the policy through act or affirmation."],
+    correctAnswer: ["The organization must be able to demonstrate that the policy has been made readily available for review by the employee.", "The organization must be able to demonstrate that it disseminated the document in an intelligible form.", "The organization must be able to demonstrate that the employee understands the requirements and content of the policy.", "The organization must be able to demonstrate that the employee agrees to comply with the policy through act or affirmation."],
+    type: "multiple"
+  },
+  {
+    id: 44,
+    week: 5,
+    question: "Which of the following approaches are used to create and manage ISSPs within an organization?\n(Select all that apply. More than one answer may be possible.)",
+    options: ["Independent ISSP documents, each tailored to a specific issue.", "A single comprehensive ISSP document that covers all issues.", "A modular ISSP document that unifies policy creation and administration while maintaining each specific issue's requirements.", "A hierarchical ISSP structure in which all issue-specific requirements are incorporated directly into the Enterprise Information Security Policy (EISP)."],
+    correctAnswer: ["Independent ISSP documents, each tailored to a specific issue.", "A single comprehensive ISSP document that covers all issues.", "A modular ISSP document that unifies policy creation and administration while maintaining each specific issue's requirements."],
+    type: "multiple"
+  },
+  {
+    id: 45,
+    week: 5,
+    question: "Which of the following statements is not true?",
+    options: ["SysSPs (systems-specific security policies) function as standards or procedures to be used when configuring or maintaining systems.", "SysSPs can be separated into two general groups, managerial guidance SysSPs and technical specifications SysSPs.", "Systems-specific policies can be developed at the same time as ISSPs, or they can be prepared in advance of their related ISSPs.", "Technical specifications SysSP expresses management's intent for the acquisition, implementation, configuration, and management of a particular technology, written from a business perspective."],
+    correctAnswer: ["Technical specifications SysSP expresses management's intent for the acquisition, implementation, configuration, and management of a particular technology, written from a business perspective."],
+    type: "single"
+  },
+  {
+    id: 46,
+    week: 5,
+    question: "________ consists of details about user access permissions and privileges for an organizational asset or resource, such as a file storage system, software component, or network communications device, and focuses on the assets and the users who can access and use them.",
+    options: ["Access Control List", "Capabilities Table", "Configuration rules", "User Policies"],
+    correctAnswer: ["Access Control List"],
+    type: "single"
+  },
+  {
+    id: 47,
+    week: 5,
+    question: "True or False:\n\nCapability Tables combines the information in Access Control Lists and Access Control Matrix.",
+    options: ["True", "False"],
+    correctAnswer: ["False"],
+    type: "single"
+  },
+  {
+    id: 48,
+    week: 5,
+    question: "________ govern how a security system reacts to the data it receives.",
+    options: ["User Policies", "Configuration Rules", "Access Control Lists", "File Integrity Baselines"],
+    correctAnswer: ["Configuration Rules"],
+    type: "single"
+  },
+  {
+    id: 49,
+    week: 5,
+    question: "Which of the following most accurately distinguishes cyber hygiene from cybersecurity?",
+    options: ["Cyber hygiene is hardware-focused, while cybersecurity is software-focused.", "Cyber hygiene is reactive in nature, while cybersecurity is always proactive.", "Cyber hygiene involves routine practices for maintaining digital health, whereas cybersecurity encompasses broader strategies, technologies, and incident response.", "Cyber hygiene focuses only on personal devices, while cybersecurity is limited to organizations."],
+    correctAnswer: ["Cyber hygiene involves routine practices for maintaining digital health, whereas cybersecurity encompasses broader strategies, technologies, and incident response."],
+    type: "single"
+  },
+  {
+    id: 50,
+    week: 5,
+    question: "________ is an organizational policy that offers detailed, targeted guidance to all members of the organization regarding the use of a resource, such as a process or technology.",
+    options: ["Systems-specific security policy", "General or security program policy", "Enterprise information security policy", "Issue-specific security policy"],
+    correctAnswer: ["Issue-specific security policy"],
+    type: "single"
   }
 ];
