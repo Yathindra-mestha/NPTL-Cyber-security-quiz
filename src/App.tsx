@@ -14,11 +14,12 @@ export default function App() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
 
-  const startTest = (mode: 'week1' | 'week2' | 'week3' | 'full' | 'wrong') => {
+  const startTest = (mode: 'week1' | 'week2' | 'week3' | 'week4' | 'full' | 'wrong') => {
     let selected: Question[] = [];
     if (mode === 'week1') selected = questions.filter(q => q.week === 1);
     if (mode === 'week2') selected = questions.filter(q => q.week === 2);
     if (mode === 'week3') selected = questions.filter(q => q.week === 3);
+    if (mode === 'week4') selected = questions.filter(q => q.week === 4);
     if (mode === 'full') selected = [...questions];
     if (mode === 'wrong') {
       const wrongIds = quizQuestions.filter(q => getStatus(q, answers) === 'wrong').map(q => q.id);
@@ -87,18 +88,29 @@ export default function App() {
       {screen === 'start' && (
         <div className="max-w-3xl mx-auto text-center mt-12 space-y-8">
           <h1 className="text-4xl md:text-5xl font-bold text-cyan-accent mb-2">NPTEL Cyber Security</h1>
-          <h2 className="text-2xl text-gray-300 mb-8">Week 1–3 Practice Test</h2>
+          <h2 className="text-2xl text-gray-300 mb-8">Practice Tests</h2>
           
-          <div className="card max-w-xl mx-auto space-y-6">
-            <p className="text-lg text-gray-300">"30 Questions • 30 Marks • No Negative Marking"</p>
-            <p className="text-sm text-gray-400 mb-6">Test yourself before the NPTEL exam.</p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button className="btn-primary" onClick={() => startTest('week1')}>Week 1 Practice</button>
-              <button className="btn-primary" onClick={() => startTest('week2')}>Week 2 Practice</button>
-              <button className="btn-primary" onClick={() => startTest('week3')}>Week 3 Practice</button>
-              <button className="btn-primary" onClick={() => startTest('full')}>Full Test – 30 Questions</button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week1')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 1 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week2')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 2 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week3')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 3 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week4')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 4 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 cursor-pointer" onClick={() => startTest('full')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–4 Test</span>
+              <span className="text-sm text-gray-400">40 Questions</span>
+            </button>
           </div>
         </div>
       )}
@@ -107,7 +119,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="flex justify-between items-end mb-2">
             <div>
-              <h2 className="text-xl font-semibold text-gray-300">Week 1–3 Practice Test</h2>
+              <h2 className="text-xl font-semibold text-gray-300">Practice Test</h2>
               <p className="text-cyan-accent font-medium">Question {currentIndex + 1} of {quizQuestions.length}</p>
             </div>
             <div className="text-sm text-gray-400">Answered: {answeredCount} / {quizQuestions.length}</div>

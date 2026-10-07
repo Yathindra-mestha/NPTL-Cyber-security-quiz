@@ -249,5 +249,85 @@ export const questions: Question[] = [
     options: ["ISO 31000, ISO 27001", "ISO 27001, ISO 31000", "ISO 27001, ISO 17799", "ISO 17799, ISO 27001"],
     correctAnswer: ["ISO 31000, ISO 27001"],
     type: "single"
+  },
+  {
+    id: 31,
+    week: 4,
+    question: "A ________ is prepared by the organization to anticipate, react to, and recover from events that threaten the security of information and information assets in the organization.",
+    options: ["Disaster Recovery Plan", "Incident Response Plan", "Contingency Plan", "Business Continuity Plan"],
+    correctAnswer: ["Contingency Plan"],
+    type: "single"
+  },
+  {
+    id: 32,
+    week: 4,
+    question: "Business Resumption Planning (BRP) consists of the actions taken by senior management to develop and implement a combined ________ and ________, and set of recovery teams.",
+    options: ["Disaster Recovery Plan, Business Continuity Plan", "Incident Response Plan, Business Continuity Plan", "Contingency Plan, Disaster Recovery Plan", "Disaster Recovery Plan, Incident Response Plan"],
+    correctAnswer: ["Disaster Recovery Plan, Business Continuity Plan"],
+    type: "single"
+  },
+  {
+    id: 33,
+    week: 4,
+    question: "Which of the following statements is not true?",
+    options: ["Tactical planning focuses on short-term undertakings that will be completed within one or two years.", "An operational plan outlines the required tasks for all relevant departments, along with communication and reporting requirements, which may include weekly meetings, progress reports, and other related activities.", "Strategic planning sets the long-term direction to be taken by the organization and each of its component parts.", "Operational plans are used to create tactical plans, which in turn are used to develop strategic plans."],
+    correctAnswer: ["Operational plans are used to create tactical plans, which in turn are used to develop strategic plans."],
+    type: "single"
+  },
+  {
+    id: 34,
+    week: 4,
+    question: "True or False:\n\nIncident response planning comprises four phases: incident planning, incident detection, incident reaction, and incident recovery.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
+  },
+  {
+    id: 35,
+    week: 4,
+    question: "Which of the following statements are true?\n\nI. Business Impact Analysis (BIA) is an investigation and assessment of the various adverse events that can affect the organization, conducted as a preliminary phase of the contingency planning process, which includes a determination of how critical a system or set of information is to the organization's core processes and recovery priorities.\n\nII. After the contingency planning (CP) policy is developed, the next step in the CP process is conducting a business impact analysis.\n\nIII. Business Impact Analysis is a preparatory activity common to both contingency planning (CP) and risk management that helps identify the business functions and information systems most critical to an organization's success.\n\nIV. The initial phase of the Business Impact Analysis (BIA) involves evaluating and prioritizing business processes within the organization according to their contribution to the organization's mission.",
+    options: ["Only I and IV are true", "Only I, II and III are true", "Only II, III and IV are true", "I, II, III and IV are true"],
+    correctAnswer: ["I, II, III and IV are true"],
+    type: "single"
+  },
+  {
+    id: 36,
+    week: 4,
+    question: "The total amount of time the system owner or authorizing official is willing to accept for a business process outage or disruption, including all impact considerations, is known as:",
+    options: ["Work Recovery Time", "Maximum Tolerable Downtime", "Maximum Recovery Time", "Recovery Point Objective"],
+    correctAnswer: ["Maximum Tolerable Downtime"],
+    type: "single"
+  },
+  {
+    id: 37,
+    week: 4,
+    question: "Which of the following statements is not true?",
+    options: ["The incident response plan (IR plan) focuses on immediate response, but if the attack escalates or is disastrous (for example, a fire, flood, earthquake, or total blackout), the process moves on to disaster recovery and the BC plan.", "The disaster recovery plan (DR plan) typically focuses on restoring systems at the original site after disasters occur, and so is closely associated with the BC plan.", "The business continuity plan (BC plan) occurs only when DR plan fails and requires more than simple restoration of information and information resources.", "The BC plan establishes critical business functions at an alternate site."],
+    correctAnswer: ["The business continuity plan (BC plan) occurs only when DR plan fails and requires more than simple restoration of information and information resources."],
+    type: "single"
+  },
+  {
+    id: 38,
+    week: 4,
+    question: "Which of the following events are Definite indicators of incidents?",
+    options: ["Use of dormant accounts, Changes to logs, Presence of hacker tools, Notifications by partner or peer", "Activities at unexpected times, Notifications by partner or peers, Unusual system crashes, Presence or execution of unknown programs or processes.", "Notification from IDPS, Presence of new accounts, Unusual system crashes, Use of dormant accounts", "Unusual consumption of computing resources, Changes to logs, Unusual system crashes, Presence of unfamiliar files"],
+    correctAnswer: ["Use of dormant accounts, Changes to logs, Presence of hacker tools, Notifications by partner or peer"],
+    type: "single"
+  },
+  {
+    id: 39,
+    week: 4,
+    question: "True or False:\n\nIncident classification is the process of examining an incident candidate and determining whether it constitutes an actual incident.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
+  },
+  {
+    id: 40,
+    week: 4,
+    question: "A fully configured computing facility that includes all services, communications links, and physical plant operations, used for BC operations is known as:",
+    options: ["Warm site", "Cold Site", "Hot Site", "Service Bureau"],
+    correctAnswer: ["Hot Site"],
+    type: "single"
   }
 ];
