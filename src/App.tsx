@@ -6,6 +6,20 @@ type Screen = 'start' | 'quiz' | 'result';
 type Answers = Record<number, string[]>;
 type ReviewFilter = 'all' | 'correct' | 'wrong' | 'unanswered';
 
+const weekLabels: Record<number, string> = {
+  1: "Week 1 Practice",
+  2: "Week 2 Practice",
+  3: "Week 3 Practice",
+  4: "Week 4 Practice",
+  5: "Week 5 Practice",
+  6: "Week 6 Practice",
+  7: "Week 7 Practice",
+  8: "Week 8 Practice",
+  9: "Week 9 — Assignment 9",
+  10: "Week 10 — Assignment 10",
+  11: "Week 11 — Assignment 11",
+};
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>('start');
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
@@ -13,6 +27,12 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showConfirm, setShowConfirm] = useState(false);
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
+
+  // Answer-Only / Revision Mode State
+  const [homeMode, setHomeMode] = useState<'test' | 'study'>('test');
+  const [studyWeek, setStudyWeek] = useState<number | 'all'>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [hiddenAnswerIds, setHiddenAnswerIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!window.history.state || !window.history.state.screen) {
@@ -115,63 +135,398 @@ export default function App() {
 
   const percentage = resultStats.total > 0 ? Math.round((resultStats.correct / resultStats.total) * 100) : 0;
 
+  const filteredStudyQuestions = useMemo(() => {
+    return questions.filter(q => {
+      const matchesWeek = studyWeek === 'all' || q.week === studyWeek;
+      if (!matchesWeek) return false;
+      if (!searchQuery.trim()) return true;
+      const query = searchQuery.toLowerCase();
+      const inQuestion = q.question.toLowerCase().includes(query);
+      const inOptions = q.options.some(opt => opt.toLowerCase().includes(query));
+      const inAnswers = q.correctAnswer.some(ans => ans.toLowerCase().includes(query));
+      return inQuestion || inOptions || inAnswers;
+    });
+  }, [studyWeek, searchQuery]);
+
   return (
     <div className="min-h-screen bg-navy-900 text-white font-sans p-4 md:p-8">
       {screen === 'start' && (
-        <div className="max-w-3xl mx-auto text-center mt-12 space-y-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-cyan-accent mb-2">NPTEL Cyber Security</h1>
-          <h2 className="text-2xl text-gray-300 mb-8">Practice Tests</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week1')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 1 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week2')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 2 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week3')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 3 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week4')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 4 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week5')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 5 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week6')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 6 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week7')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 7 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week8')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 8 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week9')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 9 Practice</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week10')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 10 — Assignment 10</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week11')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 11 — Assignment 11</span>
-              <span className="text-sm text-gray-400">10 Questions</span>
-            </button>
-            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 bg-navy-800 cursor-pointer" onClick={() => startTest('full')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–11 Test</span>
-              <span className="text-sm text-gray-400">110 Questions</span>
-            </button>
+        <div className="max-w-4xl mx-auto text-center mt-6 space-y-8">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-cyan-accent mb-2 tracking-tight">NPTEL Cyber Security</h1>
+            <p className="text-gray-400 text-sm md:text-base">Comprehensive practice and revision portal for Weeks 1 to 11 (110 Questions)</p>
           </div>
+
+          {/* Mode Selector Tabs */}
+          <div className="max-w-md mx-auto">
+            <div className="flex p-1.5 bg-navy-800 rounded-xl border border-navy-700 shadow-inner">
+              <button
+                onClick={() => setHomeMode('test')}
+                className={`flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
+                  homeMode === 'test'
+                    ? 'bg-cyan-accent text-navy-900 shadow-md shadow-cyan-accent/20 font-bold'
+                    : 'text-gray-300 hover:text-white hover:bg-navy-700/60'
+                }`}
+              >
+                <span>🎯</span>
+                <span>Test Mode</span>
+              </button>
+              <button
+                onClick={() => setHomeMode('study')}
+                className={`flex-1 py-3 px-4 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
+                  homeMode === 'study'
+                    ? 'bg-cyan-accent text-navy-900 shadow-md shadow-cyan-accent/20 font-bold'
+                    : 'text-gray-300 hover:text-white hover:bg-navy-700/60'
+                }`}
+              >
+                <span>📖</span>
+                <span>Answer-Only Mode</span>
+              </button>
+            </div>
+            <p className="text-xs text-gray-400 mt-2.5">
+              {homeMode === 'test'
+                ? "Practice quizzes by answering questions and checking your performance."
+                : "Read all questions and their correct answers for quick revision and exam preparation."}
+            </p>
+          </div>
+
+          {/* MODE 1: TEST MODE */}
+          {homeMode === 'test' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl text-gray-300">Select a Practice Test</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week1')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 1 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week2')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 2 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week3')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 3 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week4')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 4 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week5')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 5 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week6')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 6 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week7')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 7 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week8')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 8 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week9')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 9 Practice</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week10')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 10 — Assignment 10</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week11')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 11 — Assignment 11</span>
+                  <span className="text-sm text-gray-400">10 Questions</span>
+                </button>
+                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 bg-navy-800 cursor-pointer" onClick={() => startTest('full')}>
+                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–11 Test</span>
+                  <span className="text-sm text-gray-400">110 Questions</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* MODE 2: ANSWER-ONLY / REVISION MODE */}
+          {homeMode === 'study' && (
+            <div className="space-y-6 text-left">
+              {/* Week Navigation Pills */}
+              <div className="flex flex-wrap gap-2 justify-center pb-2">
+                <button
+                  onClick={() => setStudyWeek('all')}
+                  className={`px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all cursor-pointer ${
+                    studyWeek === 'all'
+                      ? 'bg-cyan-accent text-navy-900 shadow-md shadow-cyan-accent/20 font-bold'
+                      : 'bg-navy-800 text-gray-300 hover:bg-navy-700 hover:text-white border border-navy-700'
+                  }`}
+                >
+                  All Weeks (110)
+                </button>
+                {Array.from({ length: 11 }, (_, i) => i + 1).map((w) => (
+                  <button
+                    key={w}
+                    onClick={() => setStudyWeek(w)}
+                    className={`px-3 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all cursor-pointer ${
+                      studyWeek === w
+                        ? 'bg-cyan-accent text-navy-900 shadow-md shadow-cyan-accent/20 font-bold'
+                        : 'bg-navy-800 text-gray-300 hover:bg-navy-700 hover:text-white border border-navy-700'
+                    }`}
+                  >
+                    Week {w}
+                  </button>
+                ))}
+              </div>
+
+              {/* Week Header & Prev/Next Controls */}
+              <div className="card p-4 md:p-6 flex flex-col sm:flex-row justify-between items-center gap-4 bg-navy-800/90 border border-navy-700">
+                {studyWeek !== 'all' ? (
+                  <>
+                    <button
+                      disabled={studyWeek === 1}
+                      onClick={() => setStudyWeek((prev) => (typeof prev === 'number' && prev > 1 ? prev - 1 : prev))}
+                      className="btn-secondary text-xs md:text-sm px-4 py-2 w-full sm:w-auto disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      ← Previous Week
+                    </button>
+                    <div className="text-center">
+                      <h3 className="font-bold text-lg md:text-xl text-cyan-accent">{weekLabels[studyWeek]}</h3>
+                      <p className="text-xs text-gray-400">10 Questions • Quick Revision</p>
+                    </div>
+                    <button
+                      disabled={studyWeek === 11}
+                      onClick={() => setStudyWeek((prev) => (typeof prev === 'number' && prev < 11 ? prev + 1 : prev))}
+                      className="btn-secondary text-xs md:text-sm px-4 py-2 w-full sm:w-auto disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      Next Week →
+                    </button>
+                  </>
+                ) : (
+                  <div className="text-center w-full py-1">
+                    <h3 className="font-bold text-lg md:text-xl text-cyan-accent">All Weeks (Weeks 1–11)</h3>
+                    <p className="text-xs text-gray-400">110 Questions • Continuous Scroll & Complete Study Guide</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Toolbar: Search & Global Expand/Collapse */}
+              <div className="flex flex-col md:flex-row items-center gap-3">
+                <div className="relative flex-1 w-full">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400 text-sm">
+                    🔍
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="Search questions, options, or keywords..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-10 py-2.5 bg-navy-800 border border-navy-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-accent text-sm"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+                <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+                  <button
+                    onClick={() => setHiddenAnswerIds(new Set())}
+                    className="btn-secondary text-xs px-3.5 py-2.5 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                    title="Reveal all answers"
+                  >
+                    <span>👁️</span> Show All Answers
+                  </button>
+                  <button
+                    onClick={() => setHiddenAnswerIds(new Set(filteredStudyQuestions.map((q) => q.id)))}
+                    className="btn-secondary text-xs px-3.5 py-2.5 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                    title="Hide all answers"
+                  >
+                    <span>🙈</span> Hide All Answers
+                  </button>
+                </div>
+              </div>
+
+              {/* Question Count Status */}
+              <div className="flex justify-between items-center text-xs text-gray-400 px-1">
+                <span>
+                  Showing <strong className="text-gray-200">{filteredStudyQuestions.length}</strong> of{' '}
+                  {studyWeek === 'all' ? 110 : 10} questions
+                </span>
+                {searchQuery && (
+                  <span className="text-cyan-accent font-medium">Filtered by: "{searchQuery}"</span>
+                )}
+              </div>
+
+              {/* Questions List */}
+              {filteredStudyQuestions.length > 0 ? (
+                <div className="space-y-6">
+                  {filteredStudyQuestions.map((q, idx) => {
+                    const isHidden = hiddenAnswerIds.has(q.id);
+                    const isMulti = q.type === 'multiple';
+                    const isTF = q.options.length === 2 && q.options.includes('True') && q.options.includes('False');
+                    const showWeekDivider =
+                      studyWeek === 'all' &&
+                      !searchQuery &&
+                      (idx === 0 || filteredStudyQuestions[idx - 1].week !== q.week);
+
+                    return (
+                      <div key={q.id}>
+                        {showWeekDivider && (
+                          <div className="flex items-center gap-3 my-8 pt-4">
+                            <div className="h-px bg-cyan-accent/40 flex-1"></div>
+                            <span className="text-sm font-bold text-cyan-accent uppercase tracking-wider px-3 py-1 bg-navy-800 rounded-full border border-cyan-accent/30">
+                              {weekLabels[q.week]}
+                            </span>
+                            <div className="h-px bg-cyan-accent/40 flex-1"></div>
+                          </div>
+                        )}
+
+                        <div className="card p-6 border-l-4 border-l-cyan-accent text-left space-y-4 shadow-lg">
+                          {/* Card Header */}
+                          <div className="flex flex-wrap justify-between items-center gap-2 pb-3 border-b border-navy-700">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-bold text-cyan-accent text-base">Question {q.id}</span>
+                              <span className="text-xs px-2.5 py-0.5 rounded-full bg-navy-700 text-gray-300 font-medium">
+                                {weekLabels[q.week]}
+                              </span>
+                              <span className="text-xs px-2.5 py-0.5 rounded-full bg-navy-900 border border-navy-700 text-gray-400">
+                                {isMulti ? 'Multiple Select' : isTF ? 'True / False' : 'Single Choice'}
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => {
+                                setHiddenAnswerIds((prev) => {
+                                  const next = new Set(prev);
+                                  if (next.has(q.id)) {
+                                    next.delete(q.id);
+                                  } else {
+                                    next.add(q.id);
+                                  }
+                                  return next;
+                                });
+                              }}
+                              className="text-xs px-3 py-1.5 rounded bg-navy-700 hover:bg-navy-600 text-gray-300 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              {isHidden ? '👁️ Show Answer' : '🙈 Hide Answer'}
+                            </button>
+                          </div>
+
+                          {/* Question Text */}
+                          <p className="text-base md:text-lg font-medium leading-relaxed whitespace-pre-wrap text-gray-100">
+                            {q.question}
+                          </p>
+
+                          {/* Diagram / Image */}
+                          {q.imageUrl && (
+                            <div className="my-4 flex justify-center">
+                              <img
+                                src={q.imageUrl}
+                                alt="Question Diagram"
+                                className="max-h-72 w-full max-w-xl rounded-lg border border-navy-700 bg-navy-900/60 p-2 shadow-md object-contain"
+                              />
+                            </div>
+                          )}
+
+                          {/* Options */}
+                          <div className="space-y-2.5 pt-1">
+                            {q.options.map((opt, i) => {
+                              const isCorrect = q.correctAnswer.includes(opt);
+                              const showHighlight = !isHidden && isCorrect;
+
+                              let optionStyle = 'border-navy-700 bg-navy-900/60 text-gray-300';
+                              if (showHighlight) {
+                                optionStyle =
+                                  'border-emerald-500 bg-emerald-950/40 text-emerald-200 font-medium shadow-sm shadow-emerald-950/50';
+                              }
+
+                              return (
+                                <div
+                                  key={i}
+                                  className={`p-3.5 rounded-lg border text-sm flex items-start gap-3 transition-colors ${optionStyle}`}
+                                >
+                                  <span
+                                    className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold shrink-0 mt-0.5 ${
+                                      showHighlight
+                                        ? 'bg-emerald-500 text-navy-900'
+                                        : 'bg-navy-700 text-gray-300'
+                                    }`}
+                                  >
+                                    {showHighlight ? '✓' : String.fromCharCode(65 + i)}
+                                  </span>
+                                  <span className="flex-1 leading-relaxed">{opt}</span>
+                                  {showHighlight && (
+                                    <span className="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 shrink-0 border border-emerald-500/30">
+                                      Correct
+                                    </span>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Solution Box */}
+                          {!isHidden ? (
+                            <div className="mt-4 p-4 rounded-lg bg-emerald-950/30 border border-emerald-500/50 text-emerald-300">
+                              <div className="text-xs uppercase tracking-wider font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
+                                <span>✓</span> Correct Answer:
+                              </div>
+                              <div className="font-semibold text-sm md:text-base text-emerald-100">
+                                {isMulti ? (
+                                  <ul className="list-disc list-inside space-y-1 mt-1">
+                                    {q.correctAnswer.map((ans, idxAns) => (
+                                      <li key={idxAns} className="leading-snug">
+                                        {ans}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                ) : (
+                                  <span>{q.correctAnswer.join(' | ')}</span>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="mt-4 p-3 rounded-lg bg-navy-900/40 border border-navy-700 text-gray-400 text-xs flex justify-between items-center">
+                              <span>Answer is hidden</span>
+                              <button
+                                onClick={() =>
+                                  setHiddenAnswerIds((prev) => {
+                                    const next = new Set(prev);
+                                    next.delete(q.id);
+                                    return next;
+                                  })
+                                }
+                                className="text-cyan-accent hover:underline font-semibold cursor-pointer"
+                              >
+                                Show Answer
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="card py-16 text-center space-y-4">
+                  <span className="text-4xl">🔍</span>
+                  <h3 className="text-xl font-bold text-gray-200">No questions found</h3>
+                  <p className="text-sm text-gray-400">
+                    No questions matched "{searchQuery}" in{' '}
+                    {studyWeek === 'all' ? 'All Weeks' : weekLabels[studyWeek]}.
+                  </p>
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="btn-secondary text-sm px-4 py-2 cursor-pointer"
+                  >
+                    Clear Search
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
