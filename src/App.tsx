@@ -31,7 +31,6 @@ export default function App() {
   // Answer-Only / Revision Mode State
   const [homeMode, setHomeMode] = useState<'test' | 'study'>('test');
   const [studyWeek, setStudyWeek] = useState<number | 'all'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
   const [hiddenAnswerIds, setHiddenAnswerIds] = useState<Set<number>>(new Set());
 
   useEffect(() => {
@@ -136,17 +135,8 @@ export default function App() {
   const percentage = resultStats.total > 0 ? Math.round((resultStats.correct / resultStats.total) * 100) : 0;
 
   const filteredStudyQuestions = useMemo(() => {
-    return questions.filter(q => {
-      const matchesWeek = studyWeek === 'all' || q.week === studyWeek;
-      if (!matchesWeek) return false;
-      if (!searchQuery.trim()) return true;
-      const query = searchQuery.toLowerCase();
-      const inQuestion = q.question.toLowerCase().includes(query);
-      const inOptions = q.options.some(opt => opt.toLowerCase().includes(query));
-      const inAnswers = q.correctAnswer.some(ans => ans.toLowerCase().includes(query));
-      return inQuestion || inOptions || inAnswers;
-    });
-  }, [studyWeek, searchQuery]);
+    return questions.filter(q => studyWeek === 'all' || q.week === studyWeek);
+  }, [studyWeek]);
 
   return (
     <div className="min-h-screen bg-navy-900 text-white font-sans p-4 md:p-8">
@@ -309,39 +299,22 @@ export default function App() {
                 )}
               </div>
 
-              {/* Toolbar: Search & Global Expand/Collapse */}
-              <div className="flex flex-col md:flex-row items-center gap-3">
-                <div className="relative flex-1 w-full">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400 text-sm">
-                    🔍
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Search questions, options, or keywords..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-10 py-2.5 bg-navy-800 border border-navy-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-accent text-sm"
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white cursor-pointer"
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+              {/* Toolbar: Global Expand/Collapse & Count */}
+              <div className="flex flex-wrap justify-between items-center gap-3 bg-navy-800/60 p-3.5 rounded-xl border border-navy-700/80">
+                <span className="text-xs text-gray-300 font-medium">
+                  Showing <strong className="text-cyan-accent font-semibold">{filteredStudyQuestions.length}</strong> questions
+                </span>
+                <div className="flex items-center gap-2">
                   <button
                     onClick={() => setHiddenAnswerIds(new Set())}
-                    className="btn-secondary text-xs px-3.5 py-2.5 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                    className="btn-secondary text-xs px-3.5 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
                     title="Reveal all answers"
                   >
                     <span>👁️</span> Show All Answers
                   </button>
                   <button
                     onClick={() => setHiddenAnswerIds(new Set(filteredStudyQuestions.map((q) => q.id)))}
-                    className="btn-secondary text-xs px-3.5 py-2.5 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                    className="btn-secondary text-xs px-3.5 py-2 flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
                     title="Hide all answers"
                   >
                     <span>🙈</span> Hide All Answers
@@ -349,28 +322,15 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Question Count Status */}
-              <div className="flex justify-between items-center text-xs text-gray-400 px-1">
-                <span>
-                  Showing <strong className="text-gray-200">{filteredStudyQuestions.length}</strong> of{' '}
-                  {studyWeek === 'all' ? 110 : 10} questions
-                </span>
-                {searchQuery && (
-                  <span className="text-cyan-accent font-medium">Filtered by: "{searchQuery}"</span>
-                )}
-              </div>
-
               {/* Questions List */}
-              {filteredStudyQuestions.length > 0 ? (
-                <div className="space-y-6">
-                  {filteredStudyQuestions.map((q, idx) => {
-                    const isHidden = hiddenAnswerIds.has(q.id);
-                    const isMulti = q.type === 'multiple';
-                    const isTF = q.options.length === 2 && q.options.includes('True') && q.options.includes('False');
-                    const showWeekDivider =
-                      studyWeek === 'all' &&
-                      !searchQuery &&
-                      (idx === 0 || filteredStudyQuestions[idx - 1].week !== q.week);
+              <div className="space-y-6">
+                {filteredStudyQuestions.map((q, idx) => {
+                  const isHidden = hiddenAnswerIds.has(q.id);
+                  const isMulti = q.type === 'multiple';
+                  const isTF = q.options.length === 2 && q.options.includes('True') && q.options.includes('False');
+                  const showWeekDivider =
+                    studyWeek === 'all' &&
+                    (idx === 0 || filteredStudyQuestions[idx - 1].week !== q.week);
 
                     return (
                       <div key={q.id}>
@@ -509,24 +469,8 @@ export default function App() {
                     );
                   })}
                 </div>
-              ) : (
-                <div className="card py-16 text-center space-y-4">
-                  <span className="text-4xl">🔍</span>
-                  <h3 className="text-xl font-bold text-gray-200">No questions found</h3>
-                  <p className="text-sm text-gray-400">
-                    No questions matched "{searchQuery}" in{' '}
-                    {studyWeek === 'all' ? 'All Weeks' : weekLabels[studyWeek]}.
-                  </p>
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="btn-secondary text-sm px-4 py-2 cursor-pointer"
-                  >
-                    Clear Search
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+              </div>
+            )}
         </div>
       )}
 
