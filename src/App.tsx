@@ -37,7 +37,7 @@ export default function App() {
     window.history.pushState({ screen: 'start' }, '', '');
   };
 
-  const startTest = (mode: 'week1' | 'week2' | 'week3' | 'week4' | 'week5' | 'week6' | 'week7' | 'full' | 'wrong') => {
+  const startTest = (mode: 'week1' | 'week2' | 'week3' | 'week4' | 'week5' | 'week6' | 'week7' | 'week8' | 'week9' | 'week10' | 'week11' | 'full' | 'wrong') => {
     let selected: Question[] = [];
     if (mode === 'week1') selected = questions.filter(q => q.week === 1);
     if (mode === 'week2') selected = questions.filter(q => q.week === 2);
@@ -46,6 +46,10 @@ export default function App() {
     if (mode === 'week5') selected = questions.filter(q => q.week === 5);
     if (mode === 'week6') selected = questions.filter(q => q.week === 6);
     if (mode === 'week7') selected = questions.filter(q => q.week === 7);
+    if (mode === 'week8') selected = questions.filter(q => q.week === 8);
+    if (mode === 'week9') selected = questions.filter(q => q.week === 9);
+    if (mode === 'week10') selected = questions.filter(q => q.week === 10);
+    if (mode === 'week11') selected = questions.filter(q => q.week === 11);
     if (mode === 'full') selected = [...questions];
     if (mode === 'wrong') {
       const wrongIds = quizQuestions.filter(q => getStatus(q, answers) === 'wrong').map(q => q.id);
@@ -147,9 +151,25 @@ export default function App() {
               <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 7 Practice</span>
               <span className="text-sm text-gray-400">10 Questions</span>
             </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week8')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 8 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week9')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 9 Practice</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week10')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 10 — Assignment 10</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
+            <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week11')}>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 11 — Assignment 11</span>
+              <span className="text-sm text-gray-400">10 Questions</span>
+            </button>
             <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 bg-navy-800 cursor-pointer" onClick={() => startTest('full')}>
-              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–7 Test</span>
-              <span className="text-sm text-gray-400">70 Questions</span>
+              <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–11 Test</span>
+              <span className="text-sm text-gray-400">110 Questions</span>
             </button>
           </div>
         </div>

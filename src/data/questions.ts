@@ -610,5 +610,501 @@ export const questions: Question[] = [
     ],
     correctAnswer: ["Collecting, correlating, and analyzing security logs and events"],
     type: "single"
+  },
+  // WEEK 8
+  {
+    id: 71,
+    week: 8,
+    question: "Which of the following statements is not true?",
+    options: [
+      "Risk management involves three major undertakings: risk identification, risk assessment, and risk control.",
+      "Risk assessment is the process of identifying risk, assessing its relative magnitude, and taking steps to reduce it to an acceptable level.",
+      "Risk identification is the recognition, enumeration, and documentation of risks to an organization's information assets.",
+      "Risk identification also involves classifying, valuing, and prioritizing assets."
+    ],
+    correctAnswer: ["Risk assessment is the process of identifying risk, assessing its relative magnitude, and taking steps to reduce it to an acceptable level."],
+    type: "single"
+  },
+  {
+    id: 72,
+    week: 8,
+    question: "________ is the quantity and nature of risk that an organization is willing to accept while balancing security requirements against business needs such as accessibility and usability.",
+    options: [
+      "Risk appetite",
+      "Risk exposure",
+      "Residual risk",
+      "Risk capacity"
+    ],
+    correctAnswer: ["Risk appetite"],
+    type: "single"
+  },
+  {
+    id: 73,
+    week: 8,
+    question: "True or False:\n\nResidual risk is a combined function of (1) a threat less the effect of threat-reducing safeguards, (2) a vulnerability less the effect of vulnerability-reducing safeguards, and (3) an asset less the effect of asset value-reducing safeguards.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
+  },
+  {
+    id: 74,
+    week: 8,
+    question: "An organization estimates that a data breach would result in a Single Loss Expectancy (SLE) of ₹8,00,000. The Annualized Loss Expectancy (ALE) is estimated to be ₹12,00,000. What is the Annualized Rate of Occurrence (ARO)?",
+    options: ["0.5", "1.0", "1.5", "2.0"],
+    correctAnswer: ["1.5"],
+    type: "single"
+  },
+  {
+    id: 75,
+    week: 8,
+    question: "An organization's critical server has an Asset Value (AV) of ₹15,00,000 and an Exposure Factor (EF) of 40%. The threat is expected to occur 2 times per year. What is the Annualized Loss Expectancy (ALE)?",
+    options: ["₹6,00,000", "₹12,00,000", "₹20,00,000", "₹30,00,000"],
+    correctAnswer: ["₹12,00,000"],
+    type: "single"
+  },
+  {
+    id: 76,
+    week: 8,
+    question: "A company has an Annualized Loss Expectancy (ALE) of ₹20,00,000 before implementing a security safeguard. After implementing the safeguard, the ALE is ₹8,00,000. The Annual Cost of Safeguard (ACS) is ₹3,00,000. What is the Cost-Benefit Estimate (CBE)?",
+    options: ["₹5,00,000", "₹8,00,000", "₹9,00,000", "₹12,00,000"],
+    correctAnswer: ["₹9,00,000"],
+    type: "single"
+  },
+  {
+    id: 77,
+    week: 8,
+    question: "Identify the biometric error measures represented by the numbered curves/point in the supplied figure.",
+    options: [
+      "1 – FAR, 2 – FRR, 3 – CER",
+      "1 – FRR, 2 – FAR, 3 – CER",
+      "1 – FAR, 2 – CER, 3 – FRR",
+      "1 – CER, 2 – FAR, 3 – FRR"
+    ],
+    correctAnswer: ["1 – FAR, 2 – FRR, 3 – CER"],
+    type: "single",
+    imageUrl: "/biometric-error-rate.svg"
+  },
+  {
+    id: 78,
+    week: 8,
+    question: "Which of the following correctly distinguishes between identification and authentication?",
+    options: [
+      "Identification verifies the user's identity using a password, while authentication is the process of claiming an identity using a username.",
+      "Identification is the process of claiming an identity, while authentication verifies that the claimed identity is genuine.",
+      "Identification determines what resources a user can access, while authentication records the user's activities.",
+      "Identification and authentication are two terms used for the same process of verifying a user's identity."
+    ],
+    correctAnswer: ["Identification is the process of claiming an identity, while authentication verifies that the claimed identity is genuine."],
+    type: "single"
+  },
+  {
+    id: 79,
+    week: 8,
+    question: "An organization wants to ensure that an employee cannot later deny having approved an electronic purchase order. Which mechanism would be most appropriate?",
+    options: [
+      "Encrypting the purchase order using the organization's public key.",
+      "Generating a cryptographic hash of the purchase order.",
+      "Applying a digital signature using the employee's private key.",
+      "Storing the purchase order in an access-controlled database."
+    ],
+    correctAnswer: ["Applying a digital signature using the employee's private key."],
+    type: "single"
+  },
+  {
+    id: 80,
+    week: 8,
+    question: "A user wants to verify that a website's public key actually belongs to the organization operating the website. Which entity is primarily responsible for providing this assurance?",
+    options: [
+      "Registration Authority (RA)",
+      "Certificate Repository",
+      "Identity Provider (IdP)",
+      "Certificate Authority (CA)"
+    ],
+    correctAnswer: ["Certificate Authority (CA)"],
+    type: "single"
+  },
+
+  // WEEK 9
+  {
+    id: 81,
+    week: 9,
+    question: "Who first introduced the Fair Information Practice Principles (FIPPs)?",
+    options: [
+      "The Federal Trade Commission (FTC)",
+      "A private industry consortium",
+      "The European Union",
+      "The US Secretary's Advisory Committee on Automated Personal Data Systems"
+    ],
+    correctAnswer: ["The US Secretary's Advisory Committee on Automated Personal Data Systems"],
+    type: "single"
+  },
+  {
+    id: 82,
+    week: 9,
+    question: "Who is credited with popularizing \"the right to be let alone\" in American privacy law, and in which year?",
+    options: [
+      "Alan Westin, 1967",
+      "Warren & Brandeis, 1890",
+      "Richard Posner, 1975",
+      "Aristotle, 4th century BCE"
+    ],
+    correctAnswer: ["Warren & Brandeis, 1890"],
+    type: "single"
+  },
+  {
+    id: 83,
+    week: 9,
+    question: "Which school of thought holds that privacy has no independent existence and must always be derived from other rights like property or bodily security?",
+    options: [
+      "Coherentism",
+      "Reductionism",
+      "Feminist view",
+      "Economic view"
+    ],
+    correctAnswer: ["Reductionism"],
+    type: "single"
+  },
+  {
+    id: 84,
+    week: 9,
+    question: "Which stakeholder in a data ecosystem \"determines the purposes and means of processing personal data,\" termed Data Fiduciary under India's PDP?",
+    options: [
+      "Data Subject",
+      "Controller",
+      "Processor",
+      "Regulator"
+    ],
+    correctAnswer: ["Controller"],
+    type: "single"
+  },
+  {
+    id: 85,
+    week: 9,
+    question: "What is the equivalent term for \"Data Subject\" under India's Personal Data Protection framework?",
+    options: [
+      "Data Fiduciary",
+      "Data Processor",
+      "Data Principal",
+      "Data Controller"
+    ],
+    correctAnswer: ["Data Principal"],
+    type: "single"
+  },
+  {
+    id: 86,
+    week: 9,
+    question: "Which of the following are among the four dimensions of concern for information privacy? (Select all that apply. More than one answer may be possible.)",
+    options: [
+      "Concern on Collection",
+      "Concern on Unauthorized Access",
+      "Concern on Encryption Strength",
+      "Concern on Secondary Use"
+    ],
+    correctAnswer: [
+      "Concern on Collection",
+      "Concern on Unauthorized Access",
+      "Concern on Secondary Use"
+    ],
+    type: "multiple"
+  },
+  {
+    id: 87,
+    week: 9,
+    question: "According to Posner's (1975) economic view, when does privacy matter?",
+    options: [
+      "Always, regardless of cost",
+      "Only insofar as it has economic consequences",
+      "Never, it is purely a social construct",
+      "Only in employer-employee relationships"
+    ],
+    correctAnswer: ["Only insofar as it has economic consequences"],
+    type: "single"
+  },
+  {
+    id: 88,
+    week: 9,
+    question: "Which era in Westin's (2003) evolution of information privacy is marked by the rise of the Internet, the emergence of Web 2.0, and a major geopolitical event that reshaped information-exchange norms?",
+    options: [
+      "Privacy Baseline (1945–1960)",
+      "1st Era of Privacy (1961–1979)",
+      "2nd Era of Privacy (1980–1989)",
+      "3rd Era of Privacy (1990–2002)"
+    ],
+    correctAnswer: ["3rd Era of Privacy (1990–2002)"],
+    type: "single"
+  },
+  {
+    id: 89,
+    week: 9,
+    question: "Alan Westin's 1967 work Privacy and Freedom distinguished \"privacy\" from a related concept concerning personal data. Which pairing correctly reflects that distinction?",
+    options: [
+      "Privacy is control over exposure to others; informational self-determination is control over disclosure of personal data.",
+      "Privacy is a legal right; information privacy is a moral principle.",
+      "Privacy applies to individuals; information privacy applies only to institutions.",
+      "Privacy is derived from property rights; information privacy is derived from bodily security."
+    ],
+    correctAnswer: ["Privacy is control over exposure to others; informational self-determination is control over disclosure of personal data."],
+    type: "single"
+  },
+  {
+    id: 90,
+    week: 9,
+    question: "True or False:\n\nCoherentism treats privacy as a right derived from other fundamental rights like property and bodily security.",
+    options: ["True", "False"],
+    correctAnswer: ["False"],
+    type: "single"
+  },
+
+  // WEEK 10
+  {
+    id: 91,
+    week: 10,
+    question: "True or False:\n\nConfidentiality concerns the externalization of restricted but accurate information to a specific, authorized entity.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
+  },
+  {
+    id: 92,
+    week: 10,
+    question: "Which earlier regulatory framework evolved into the GDPR by 2018?",
+    options: [
+      "APEC privacy framework",
+      "OECD Guidelines",
+      "FTC privacy principles",
+      "EU Data Protection Directive"
+    ],
+    correctAnswer: ["EU Data Protection Directive"],
+    type: "single"
+  },
+  {
+    id: 93,
+    week: 10,
+    question: "In the randomization technique for privacy-preserving data mining, what does the data receiver do with the randomized values transmitted by data providers?",
+    options: [
+      "Discards the noise and reconstructs exact original values",
+      "Employs a distribution reconstruction algorithm to estimate the original data distribution",
+      "Applies k-anonymity to the randomized values",
+      "Encrypts the noise component before use"
+    ],
+    correctAnswer: ["Employs a distribution reconstruction algorithm to estimate the original data distribution"],
+    type: "single"
+  },
+  {
+    id: 94,
+    week: 10,
+    question: "What does the k-anonymity requirement state about a released dataset?",
+    options: [
+      "Every record must be fully anonymous with no identifiers at all",
+      "Every combination of quasi-identifier values must be indistinctly matched to at least k individuals",
+      "At most k attributes can be disclosed per record",
+      "Data must be encrypted using a k-bit key"
+    ],
+    correctAnswer: ["Every combination of quasi-identifier values must be indistinctly matched to at least k individuals"],
+    type: "single"
+  },
+  {
+    id: 95,
+    week: 10,
+    question: "Data that has been de-identified and encrypted, but for which re-identification remains possible using a separate key, is classified under GDPR as:",
+    options: [
+      "Anonymous data, fully outside GDPR scope",
+      "Personal data, still within GDPR scope",
+      "Non-personal data once encrypted",
+      "Quasi-identifier data"
+    ],
+    correctAnswer: ["Personal data, still within GDPR scope"],
+    type: "single"
+  },
+  {
+    id: 96,
+    week: 10,
+    question: "Completely removing certain columns and reducing the granularity of others, as part of k-anonymization, describes which two techniques?",
+    options: [
+      "Suppression and encryption",
+      "Generalization and encryption",
+      "Suppression and generalization",
+      "Randomization and suppression"
+    ],
+    correctAnswer: ["Suppression and generalization"],
+    type: "single"
+  },
+  {
+    id: 97,
+    week: 10,
+    question: "Which of the following are quasi-identifiers rather than direct identifiers? (Select all that apply. More than one answer may be possible.)",
+    options: [
+      "ZIP code",
+      "Passport / ID card number",
+      "Date of birth",
+      "Gender"
+    ],
+    correctAnswer: [
+      "ZIP code",
+      "Date of birth",
+      "Gender"
+    ],
+    type: "multiple"
+  },
+  {
+    id: 98,
+    week: 10,
+    question: "Individuals reporting that they value privacy highly, while freely sharing personal data on social media, illustrates which phenomenon?",
+    options: [
+      "Prioritizing convenience over privacy alone",
+      "Unawareness of behavioral impact on privacy",
+      "Privacy Paradox",
+      "The balance between privacy protection and data sharing"
+    ],
+    correctAnswer: ["Privacy Paradox"],
+    type: "single"
+  },
+  {
+    id: 99,
+    week: 10,
+    question: "Which statement correctly distinguishes anonymity, secrecy, and transparency?",
+    options: [
+      "Anonymity is intentional concealment of information; secrecy conceals identity; transparency discloses information about oneself",
+      "Anonymity conceals identity; secrecy is intentional concealment of information; transparency discloses information about oneself",
+      "Anonymity conceals identity; secrecy discloses information about oneself; transparency is intentional concealment",
+      "Anonymity discloses information about oneself; secrecy conceals identity; transparency is intentional concealment"
+    ],
+    correctAnswer: ["Anonymity conceals identity; secrecy is intentional concealment of information; transparency discloses information about oneself"],
+    type: "single"
+  },
+  {
+    id: 100,
+    week: 10,
+    question: "On an R-U map plotting disclosure risk against data utility, what does the optimal release point represent?",
+    options: [
+      "None of the above",
+      "Utilizing all PII data to extract full value without privacy concerns",
+      "Complete elimination of all data privacy risks by fully anonymizing all data",
+      "Maximizing data usefulness while maintaining acceptable privacy risk"
+    ],
+    correctAnswer: ["Maximizing data usefulness while maintaining acceptable privacy risk"],
+    type: "single"
+  },
+
+  // WEEK 11
+  {
+    id: 101,
+    week: 11,
+    question: "Which of the following is not true about personal data as per GDPR?",
+    options: [
+      "Personal data is any information that relates to an individual who can be directly or indirectly identified.",
+      "Names and email addresses are personal data.",
+      "Location information, ethnicity, gender, biometric data, religious beliefs, web cookies, and political opinions can also be personal data.",
+      "Pseudonymous data is not personal data, even if the individual can be easily re-identified from it."
+    ],
+    correctAnswer: ["Pseudonymous data is not personal data, even if the individual can be easily re-identified from it."],
+    type: "single"
+  },
+  {
+    id: 102,
+    week: 11,
+    question: "An organization continues to retain personal data even though it is no longer required for the purpose for which it was collected. Which principle is most directly concerned with this situation?",
+    options: [
+      "Accuracy",
+      "Purpose Limitation",
+      "Storage Limitation",
+      "Accountability"
+    ],
+    correctAnswer: ["Storage Limitation"],
+    type: "single"
+  },
+  {
+    id: 103,
+    week: 11,
+    question: "Which of the following statements best describes the applicability of the GDPR?",
+    options: [
+      "GDPR applies only when an organization is physically located in the European Union.",
+      "GDPR applies only to organizations that collect names and email addresses.",
+      "GDPR can apply to organizations that process personal data, regardless of their location, when the GDPR applies to their processing activities.",
+      "GDPR applies only to government organizations that process personal data."
+    ],
+    correctAnswer: ["GDPR can apply to organizations that process personal data, regardless of their location, when the GDPR applies to their processing activities."],
+    type: "single"
+  },
+  {
+    id: 104,
+    week: 11,
+    question: "A person is in a life-threatening situation, and processing their personal data is necessary to save their life. Which legal basis for processing is most appropriate under GDPR?",
+    options: [
+      "Consent",
+      "Public interest",
+      "Contract",
+      "Vital interests"
+    ],
+    correctAnswer: ["Vital interests"],
+    type: "single"
+  },
+  {
+    id: 105,
+    week: 11,
+    question: "In the context of Aadhaar data, who is considered the Data Principal under the DPDP Act?",
+    options: [
+      "The Unique Identification Authority of India (UIDAI)",
+      "The individual to whom the Aadhaar number and related personal data belong",
+      "The service provider that uses Aadhaar authentication",
+      "The government agency responsible for processing the data"
+    ],
+    correctAnswer: ["The individual to whom the Aadhaar number and related personal data belong"],
+    type: "single"
+  },
+  {
+    id: 106,
+    week: 11,
+    question: "What is the primary objective of the Digital Personal Data Protection (DPDP) Act, 2023?",
+    options: [
+      "To give organizations unrestricted authority to process personal data when a legitimate purpose exists.",
+      "To balance the right of individuals to protect their personal data with the need to process such data for lawful purposes.",
+      "To restrict the processing of digital personal data primarily to government-authorized purposes.",
+      "To prioritize the prevention of personal-data processing over its legitimate and lawful use."
+    ],
+    correctAnswer: ["To balance the right of individuals to protect their personal data with the need to process such data for lawful purposes."],
+    type: "single"
+  },
+  {
+    id: 107,
+    week: 11,
+    question: "According to the Digital Personal Data Protection Act, 2023 (DPDP Act), a person who alone or together with others determines the purpose and means of processing personal data is known as:",
+    options: [
+      "Data Protection Officer",
+      "Data Processor",
+      "Data Fiduciary",
+      "Consent Manager"
+    ],
+    correctAnswer: ["Data Fiduciary"],
+    type: "single"
+  },
+  {
+    id: 108,
+    week: 11,
+    question: "The Information Technology Act of India was enacted in which year?",
+    options: ["2000", "2020", "2022", "1998"],
+    correctAnswer: ["2000"],
+    type: "single"
+  },
+  {
+    id: 109,
+    week: 11,
+    question: "Which of the following correctly identifies the core principles of the Aadhaar technology system?",
+    options: [
+      "Openness, central storage, security, and data monetization",
+      "Data monetization, vendor-neutrality, security, and data analytics",
+      "Openness, data monetization, security, and data analytics",
+      "Openness, vendor-neutrality, security, and data analytics"
+    ],
+    correctAnswer: ["Openness, vendor-neutrality, security, and data analytics"],
+    type: "single"
+  },
+  {
+    id: 110,
+    week: 11,
+    question: "True or False:\n\nThe Indian Telegraph Act, 1885, empowered the government to intercept certain communications under specified circumstances.",
+    options: ["True", "False"],
+    correctAnswer: ["True"],
+    type: "single"
   }
 ];

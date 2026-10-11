@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="chartBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329" />
+      <stop offset="100%" stop-color="#111e38" />
+    </linearGradient>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#38bdf8" />
+    </marker>
+    <marker id="labelArrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="400" rx="12" fill="url(#chartBg)" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="350" y="36" text-anchor="middle" fill="#38bdf8" font-size="16" font-family="sans-serif" font-weight="700" letter-spacing="1">BIOMETRIC SYSTEM ERROR RATES</text>
+
+  <!-- Axes -->
+  <!-- Y Axis -->
+  <line x1="100" y1="320" x2="100" y2="70" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <!-- X Axis -->
+  <line x1="100" y1="320" x2="620" y2="320" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Grid lines -->
+  <line x1="100" y1="260" x2="600" y2="260" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="200" x2="600" y2="200" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="140" x2="600" y2="140" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="80" x2="600" y2="80" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Axis Labels -->
+  <!-- Y-Axis label -->
+  <text x="-195" y="45" text-anchor="middle" transform="rotate(-90)" fill="#cbd5e1" font-size="14" font-family="sans-serif" font-weight="600">Error Rate (%)</text>
+  <!-- X-Axis label -->
+  <text x="350" y="360" text-anchor="middle" fill="#cbd5e1" font-size="14" font-family="sans-serif" font-weight="600">Sensitivity / Threshold (%)</text>
+
+  <!-- Curve 1 (FAR): High at low sensitivity, decreases toward 0 -->
+  <!-- Starts at (120, 90) and curves down to (560, 310) -->
+  <path d="M 120 90 Q 230 180, 340 215 T 560 310" fill="none" stroke="#ef4444" stroke-width="3.5"/>
+
+  <!-- Curve 2 (FRR): Low at low sensitivity, increases toward high -->
+  <!-- Starts at (120, 310) and curves up to (560, 90) -->
+  <path d="M 120 310 Q 230 250, 340 215 T 560 90" fill="none" stroke="#10b981" stroke-width="3.5"/>
+
+  <!-- Intersection Point (3 - CER): at (340, 215) -->
+  <circle cx="340" cy="215" r="7" fill="#fbbf24" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Dashed lines to axes from CER -->
+  <line x1="340" y1="215" x2="340" y2="320" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="100" y1="215" x2="340" y2="215" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Label 1 pointing to Curve 1 -->
+  <g transform="translate(180, 110)">
+    <circle cx="0" cy="0" r="16" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="0" y="6" text-anchor="middle" fill="#fbbf24" font-size="16" font-family="sans-serif" font-weight="bold">1</text>
+    <line x1="15" y1="12" x2="42" y2="30" stroke="#fbbf24" stroke-width="2" marker-end="url(#labelArrow)"/>
+  </g>
+
+  <!-- Label 2 pointing to Curve 2 -->
+  <g transform="translate(500, 110)">
+    <circle cx="0" cy="0" r="16" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="0" y="6" text-anchor="middle" fill="#fbbf24" font-size="16" font-family="sans-serif" font-weight="bold">2</text>
+    <line x1="-15" y1="12" x2="-42" y2="30" stroke="#fbbf24" stroke-width="2" marker-end="url(#labelArrow)"/>
+  </g>
+
+  <!-- Label 3 pointing to Intersection Point -->
+  <g transform="translate(340, 140)">
+    <circle cx="0" cy="0" r="16" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5"/>
+    <text x="0" y="6" text-anchor="middle" fill="#fbbf24" font-size="16" font-family="sans-serif" font-weight="bold">3</text>
+    <line x1="0" y1="18" x2="0" y2="60" stroke="#fbbf24" stroke-width="2" marker-end="url(#labelArrow)"/>
+  </g>
+
+  <!-- Axis indicator ticks -->
+  <text x="90" y="325" text-anchor="end" fill="#64748b" font-size="11" font-family="sans-serif">0</text>
+  <text x="90" y="218" text-anchor="end" fill="#fbbf24" font-size="11" font-family="sans-serif">CER</text>
+  <text x="90" y="85" text-anchor="end" fill="#64748b" font-size="11" font-family="sans-serif">100%</text>
+
+  <text x="120" y="338" text-anchor="middle" fill="#64748b" font-size="11" font-family="sans-serif">Low</text>
+  <text x="560" y="338" text-anchor="middle" fill="#64748b" font-size="11" font-family="sans-serif">High</text>
+</svg>
