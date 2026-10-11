@@ -7,6 +7,7 @@ export interface Question {
   options: string[];
   correctAnswer: string[];
   type: QuestionType;
+  imageUrl?: string;
 }
 
 export const questions: Question[] = [
@@ -488,6 +489,126 @@ export const questions: Question[] = [
     question: "True or False:\n\nThe goal of risk assessment is to assign a risk rating or score that represents the relative risk for a specific vulnerability of an information asset.",
     options: ["True", "False"],
     correctAnswer: ["True"],
+    type: "single"
+  },
+  {
+    id: 61,
+    week: 7,
+    question: "Which of the following statements correctly describes the processor protection ring model?",
+    options: [
+      "User programs execute in Ring 0 because they require maximum privileges.",
+      "Ring 3 is the most privileged ring used by the operating system.",
+      "The kernel executes in the highest privilege level, and no software is more privileged than the kernel.",
+      "All four protection rings are equally privileged."
+    ],
+    correctAnswer: ["The kernel executes in the highest privilege level, and no software is more privileged than the kernel."],
+    type: "single"
+  },
+  {
+    id: 62,
+    week: 7,
+    question: "Which of the following is not true with respect to Public-Key Encryption?",
+    options: [
+      "One algorithm is used for encryption and decryption with a pair of keys, one for encryption and one for decryption.",
+      "The sender and receiver must each have one of the matched pair of keys.",
+      "One of the two keys must be kept secret.",
+      "The sender and receiver must share the algorithm and the key."
+    ],
+    correctAnswer: ["The sender and receiver must share the algorithm and the key."],
+    type: "single"
+  },
+  {
+    id: 63,
+    week: 7,
+    question: "Which of the following statements are true? (Select all that apply. More than one answer may be possible.)",
+    options: [
+      "A hash function maps a variable-length message into a fixed-length hash value, or message digest.",
+      "Hash functions can be used for intrusion detection and virus detection.",
+      "The compression function used in secure hash algorithms falls into one of two categories: a function based on a public-key cryptographic algorithm or an algorithm based on a stream cipher.",
+      "A cryptographic hash function can be used to construct a pseudorandom function (PRF) or a pseudorandom number generator (PRNG)."
+    ],
+    correctAnswer: [
+      "A hash function maps a variable-length message into a fixed-length hash value, or message digest.",
+      "Hash functions can be used for intrusion detection and virus detection.",
+      "A cryptographic hash function can be used to construct a pseudorandom function (PRF) or a pseudorandom number generator (PRNG)."
+    ],
+    type: "multiple"
+  },
+  {
+    id: 64,
+    week: 7,
+    question: "HTTPS refers to the combination of ______ and ______ to implement secure communication between a Web browser and a Web server.",
+    options: ["HTTP, SSL", "HTTP, SSH", "UDP, TCP", "TCP, SSL"],
+    correctAnswer: ["HTTP, SSL"],
+    type: "single"
+  },
+  {
+    id: 65,
+    week: 7,
+    question: "________ is the principle that an individual is entrusted to safeguard and control equipment, keying material, and information and is answerable to the proper authority for their loss or misuse, whereas ________ is the principle that ensures actions and events can be traced and reviewed through appropriate records and evidence.",
+    options: [
+      "Auditability, Accountability",
+      "Accountability, Auditability",
+      "Confidentiality, Auditability",
+      "Responsibility, Accountability"
+    ],
+    correctAnswer: ["Accountability, Auditability"],
+    type: "single"
+  },
+  {
+    id: 66,
+    week: 7,
+    question: "Match the following:\n\n1. Stateful Inspection Firewall\n2. Packet Filters\n3. Proxy Firewalls\n4. Next Generation Firewalls\n\nDescriptions:\na. Examine individual data packets, making decisions to allow or block them based on predefined rules.\nb. Serves as the gateway from one network to another for a specific application.\nc. Allows or blocks traffic based on state, port, and protocol.\nd. Combines traditional stateful firewall functions with application awareness and control, integrated intrusion prevention, advanced threat detection, and user identity awareness.",
+    options: [
+      "1-c, 2-a, 3-b, 4-d",
+      "1-b, 2-c, 3-b, 4-d",
+      "1-c, 2-b, 3-a, 4-d",
+      "1-b, 2-c, 3-b, 4-a"
+    ],
+    correctAnswer: ["1-c, 2-a, 3-b, 4-d"],
+    type: "single"
+  },
+  {
+    id: 67,
+    week: 7,
+    question: "______ masks your Internet Protocol (IP) address, creating a private connection from a public Wi-Fi connection.",
+    options: ["IPSEC", "SSL", "VPN", "DNS"],
+    correctAnswer: ["VPN"],
+    type: "single"
+  },
+  {
+    id: 68,
+    week: 7,
+    question: "Match the following:\n\n1. Reconnaissance\n2. Exploitation\n3. Weaponization\n4. Command and Control\n\nDescriptions:\na. Creating a malicious payload or malware tailored to the target.\nb. Establishing a remote communication channel to control the compromised system.\nc. Triggering the code to breach the system vulnerability.\nd. Gathering target data, scanning networks, and finding weak spots.",
+    options: [
+      "1-c, 2-a, 3-b, 4-d",
+      "1-d, 2-c, 3-a, 4-b",
+      "1-d, 2-a, 3-c, 4-b",
+      "1-b, 2-d, 3-a, 4-d"
+    ],
+    correctAnswer: ["1-d, 2-a, 3-c, 4-b"],
+    type: "single"
+  },
+  {
+    id: 69,
+    week: 7,
+    question: "The following figure depicts which attack?",
+    options: ["DDOS", "Brute Force Attack", "Session Hijacking", "DNS Spoofing"],
+    correctAnswer: ["DDOS"],
+    type: "single",
+    imageUrl: "/ddos-attack.svg"
+  },
+  {
+    id: 70,
+    week: 7,
+    question: "Which of the following is the primary function of a SIEM system?",
+    options: [
+      "Encrypting all network traffic",
+      "Collecting, correlating, and analyzing security logs and events",
+      "Blocking all unauthorized websites",
+      "Performing software vulnerability scanning"
+    ],
+    correctAnswer: ["Collecting, correlating, and analyzing security logs and events"],
     type: "single"
   }
 ];
