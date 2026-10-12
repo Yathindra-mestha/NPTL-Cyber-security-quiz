@@ -33,6 +33,11 @@ export default function App() {
   const [studyWeek, setStudyWeek] = useState<number | 'all'>('all');
   const [hiddenAnswerIds, setHiddenAnswerIds] = useState<Set<number>>(new Set());
 
+  // Custom Range State
+  const [rangeStart, setRangeStart] = useState<number>(1);
+  const [rangeEnd, setRangeEnd] = useState<number>(4);
+  const [testTitle, setTestTitle] = useState<string>("Practice Test");
+
   useEffect(() => {
     if (!window.history.state || !window.history.state.screen) {
       window.history.replaceState({ screen: 'start' }, '', '');
@@ -56,25 +61,38 @@ export default function App() {
     window.history.pushState({ screen: 'start' }, '', '');
   };
 
-  const startTest = (mode: 'week1' | 'week2' | 'week3' | 'week4' | 'week5' | 'week6' | 'week7' | 'week8' | 'week9' | 'week10' | 'week11' | 'full' | 'wrong') => {
+  const startTest = (
+    mode: 'week1' | 'week2' | 'week3' | 'week4' | 'week5' | 'week6' | 'week7' | 'week8' | 'week9' | 'week10' | 'week11' | 'full' | 'range' | 'wrong',
+    customRange?: { start: number; end: number }
+  ) => {
     let selected: Question[] = [];
-    if (mode === 'week1') selected = questions.filter(q => q.week === 1);
-    if (mode === 'week2') selected = questions.filter(q => q.week === 2);
-    if (mode === 'week3') selected = questions.filter(q => q.week === 3);
-    if (mode === 'week4') selected = questions.filter(q => q.week === 4);
-    if (mode === 'week5') selected = questions.filter(q => q.week === 5);
-    if (mode === 'week6') selected = questions.filter(q => q.week === 6);
-    if (mode === 'week7') selected = questions.filter(q => q.week === 7);
-    if (mode === 'week8') selected = questions.filter(q => q.week === 8);
-    if (mode === 'week9') selected = questions.filter(q => q.week === 9);
-    if (mode === 'week10') selected = questions.filter(q => q.week === 10);
-    if (mode === 'week11') selected = questions.filter(q => q.week === 11);
-    if (mode === 'full') selected = [...questions];
-    if (mode === 'wrong') {
+    let title = "Practice Test";
+
+    if (mode === 'week1') { selected = questions.filter(q => q.week === 1); title = "Week 1 Practice"; }
+    else if (mode === 'week2') { selected = questions.filter(q => q.week === 2); title = "Week 2 Practice"; }
+    else if (mode === 'week3') { selected = questions.filter(q => q.week === 3); title = "Week 3 Practice"; }
+    else if (mode === 'week4') { selected = questions.filter(q => q.week === 4); title = "Week 4 Practice"; }
+    else if (mode === 'week5') { selected = questions.filter(q => q.week === 5); title = "Week 5 Practice"; }
+    else if (mode === 'week6') { selected = questions.filter(q => q.week === 6); title = "Week 6 Practice"; }
+    else if (mode === 'week7') { selected = questions.filter(q => q.week === 7); title = "Week 7 Practice"; }
+    else if (mode === 'week8') { selected = questions.filter(q => q.week === 8); title = "Week 8 Practice"; }
+    else if (mode === 'week9') { selected = questions.filter(q => q.week === 9); title = "Week 9 — Assignment 9"; }
+    else if (mode === 'week10') { selected = questions.filter(q => q.week === 10); title = "Week 10 — Assignment 10"; }
+    else if (mode === 'week11') { selected = questions.filter(q => q.week === 11); title = "Week 11 — Assignment 11"; }
+    else if (mode === 'full') { selected = [...questions]; title = "Full Week 1–11 Test"; }
+    else if (mode === 'range') {
+      const s = Math.min(customRange?.start || rangeStart, customRange?.end || rangeEnd);
+      const e = Math.max(customRange?.start || rangeStart, customRange?.end || rangeEnd);
+      selected = questions.filter(q => q.week >= s && q.week <= e);
+      title = s === e ? `Week ${s} Practice` : `Weeks ${s} to ${e} Practice Test`;
+    }
+    else if (mode === 'wrong') {
       const wrongIds = quizQuestions.filter(q => getStatus(q, answers) === 'wrong').map(q => q.id);
       selected = questions.filter(q => wrongIds.includes(q.id));
+      title = "Wrong Questions Review Test";
     }
     
+    setTestTitle(title);
     setQuizQuestions(selected);
     setAnswers({});
     setCurrentIndex(0);
@@ -182,58 +200,165 @@ export default function App() {
 
           {/* MODE 1: TEST MODE */}
           {homeMode === 'test' && (
-            <div className="space-y-6">
-              <h2 className="text-2xl text-gray-300">Select a Practice Test</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week1')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 1 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week2')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 2 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week3')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 3 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week4')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 4 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week5')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 5 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week6')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 6 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week7')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 7 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week8')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 8 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week9')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 9 Practice</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week10')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 10 — Assignment 10</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week11')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 11 — Assignment 11</span>
-                  <span className="text-sm text-gray-400">10 Questions</span>
-                </button>
-                <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 bg-navy-800 cursor-pointer" onClick={() => startTest('full')}>
-                  <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–11 Test</span>
-                  <span className="text-sm text-gray-400">110 Questions</span>
-                </button>
+            <div className="space-y-8">
+              {/* Custom Week Range Feature */}
+              <div className="card p-6 md:p-8 bg-gradient-to-br from-navy-800 via-navy-800 to-navy-900 border-2 border-cyan-accent/50 max-w-3xl mx-auto shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-accent/5 rounded-full blur-2xl pointer-events-none"></div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pb-4 border-b border-navy-700/80 mb-6">
+                  <div className="text-left">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-accent/15 text-cyan-accent text-xs font-semibold mb-1 border border-cyan-accent/30">
+                      <span>⚡</span> Dynamic Quiz Range
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white">Custom Range Quiz in One Stretch</h3>
+                  </div>
+                  <span className="text-xs text-gray-400">Select any Start & End Week</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left mb-6">
+                  <div className="space-y-1.5">
+                    <label className="text-xs uppercase font-bold tracking-wider text-gray-400">Start Week</label>
+                    <select
+                      value={rangeStart}
+                      onChange={(e) => setRangeStart(Number(e.target.value))}
+                      className="w-full bg-navy-900 border border-navy-700 rounded-lg p-3 text-white text-sm font-semibold focus:outline-none focus:border-cyan-accent cursor-pointer"
+                    >
+                      {Array.from({ length: 11 }, (_, i) => i + 1).map((w) => (
+                        <option key={w} value={w}>
+                          Week {w} (Questions {(w - 1) * 10 + 1}–{w * 10})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-xs uppercase font-bold tracking-wider text-gray-400">End Week</label>
+                    <select
+                      value={rangeEnd}
+                      onChange={(e) => setRangeEnd(Number(e.target.value))}
+                      className="w-full bg-navy-900 border border-navy-700 rounded-lg p-3 text-white text-sm font-semibold focus:outline-none focus:border-cyan-accent cursor-pointer"
+                    >
+                      {Array.from({ length: 11 }, (_, i) => i + 1).map((w) => (
+                        <option key={w} value={w}>
+                          Week {w} (Questions {(w - 1) * 10 + 1}–{w * 10})
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Range Quick Presets */}
+                <div className="flex flex-wrap items-center gap-2 justify-start mb-6 text-xs text-gray-300">
+                  <span className="text-gray-400 font-medium">Quick Presets:</span>
+                  <button
+                    type="button"
+                    onClick={() => { setRangeStart(1); setRangeEnd(4); }}
+                    className="px-2.5 py-1 rounded bg-navy-900 hover:bg-navy-700 border border-navy-700 hover:border-cyan-accent transition-colors cursor-pointer"
+                  >
+                    Weeks 1–4
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setRangeStart(1); setRangeEnd(5); }}
+                    className="px-2.5 py-1 rounded bg-navy-900 hover:bg-navy-700 border border-navy-700 hover:border-cyan-accent transition-colors cursor-pointer"
+                  >
+                    Weeks 1–5
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setRangeStart(1); setRangeEnd(8); }}
+                    className="px-2.5 py-1 rounded bg-navy-900 hover:bg-navy-700 border border-navy-700 hover:border-cyan-accent transition-colors cursor-pointer"
+                  >
+                    Weeks 1–8
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { setRangeStart(6); setRangeEnd(11); }}
+                    className="px-2.5 py-1 rounded bg-navy-900 hover:bg-navy-700 border border-navy-700 hover:border-cyan-accent transition-colors cursor-pointer"
+                  >
+                    Weeks 6–11
+                  </button>
+                </div>
+
+                {/* Range Info Preview & Start Action */}
+                {(() => {
+                  const s = Math.min(rangeStart, rangeEnd);
+                  const e = Math.max(rangeStart, rangeEnd);
+                  const count = (e - s + 1) * 10;
+                  return (
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl bg-navy-900/80 border border-cyan-accent/30">
+                      <div className="text-left">
+                        <div className="text-base font-bold text-cyan-accent">
+                          {s === e ? `Week ${s} Quiz` : `Weeks ${s} to ${e} Continuous Test`}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {count} Questions • {count} Marks • Covers Questions {(s - 1) * 10 + 1} to {e * 10}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => startTest('range', { start: s, end: e })}
+                        className="btn-primary w-full sm:w-auto px-6 py-3 font-bold text-sm tracking-wide bg-gradient-to-r from-cyan-accent to-teal-400 text-navy-900 hover:opacity-95 shadow-lg shadow-cyan-accent/25 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <span>Start Weeks {s}–{e} Quiz</span>
+                        <span>→</span>
+                      </button>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              <div>
+                <h2 className="text-xl font-semibold text-gray-300 mb-6">Or Select an Individual Practice Test</h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week1')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 1 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week2')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 2 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week3')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 3 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week4')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 4 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week5')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 5 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week6')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 6 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week7')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 7 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week8')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 8 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week9')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 9 Practice</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week10')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 10 — Assignment 10</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group cursor-pointer" onClick={() => startTest('week11')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Week 11 — Assignment 11</span>
+                    <span className="text-sm text-gray-400">10 Questions</span>
+                  </button>
+                  <button className="card hover:border-cyan-accent transition-colors flex flex-col items-center justify-center p-8 space-y-2 group md:col-span-2 bg-navy-800 cursor-pointer" onClick={() => startTest('full')}>
+                    <span className="text-xl font-semibold group-hover:text-cyan-accent transition-colors">Full Week 1–11 Test</span>
+                    <span className="text-sm text-gray-400">110 Questions</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -478,7 +603,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="flex justify-between items-end mb-2">
             <div>
-              <h2 className="text-xl font-semibold text-gray-300">Practice Test</h2>
+              <h2 className="text-xl font-semibold text-gray-300">{testTitle}</h2>
               <p className="text-cyan-accent font-medium">Question {currentIndex + 1} of {quizQuestions.length}</p>
             </div>
             <div className="text-sm text-gray-400">Answered: {answeredCount} / {quizQuestions.length}</div>
@@ -583,6 +708,9 @@ export default function App() {
       {screen === 'result' && (
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="card text-center py-10 px-4 space-y-6">
+            <span className="inline-block px-3 py-1 rounded-full bg-cyan-accent/15 text-cyan-accent text-xs font-semibold uppercase tracking-wider border border-cyan-accent/30 mb-1">
+              {testTitle}
+            </span>
             <h2 className="text-3xl font-bold tracking-wider text-gray-100">TEST COMPLETED</h2>
             
             <div className="flex flex-wrap justify-center gap-8 md:gap-16 my-8">
